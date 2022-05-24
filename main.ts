@@ -32,4 +32,27 @@ basic.forever(function () {
     if (!(XZ)) {
         radio.sendValue("movimentoY", JY)
     }
+
+    if(radio.receivedPacket(RadioPacketProperty.SignalStrength) >= 0)
+    {
+        basic.showLeds(`
+        . # . # .
+        . # . # .
+        . . . . .
+        # # # # #
+        . . . . .
+        `)
+    }
+    else
+    {
+        basic.showLeds(`
+        . # . # .
+        . # . # .
+        . . . . .
+        # . . . #
+        . # # # .
+        `)
+    }
+    //to check if there is a connection
+
 })
