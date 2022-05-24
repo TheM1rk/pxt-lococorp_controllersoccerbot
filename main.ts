@@ -1,11 +1,15 @@
-let JY, JX, JYF, JXF,XZ:boolean,YZ:boolean;
+let JY, JX, JYF, JXF,XZ:boolean,YZ:boolean,STOP:boolean;
 radio.setGroup(1)
+// to check if there is a connection
 basic.forever(function () {
     // boolean used in case the x axis is 0
     XZ = false
     // same thing for axis y
     YZ = false
     // read Y
+    STOP=false
+    //stop is used when no input is send, it prevents from
+    //spamming packages
     JY = pins.analogReadPin(AnalogPin.P2)
     // read X
     JX = pins.analogReadPin(AnalogPin.P1)
@@ -32,27 +36,32 @@ basic.forever(function () {
     if (!(XZ)) {
         radio.sendValue("movimentoY", JY)
     }
-
-    if(radio.receivedPacket(RadioPacketProperty.SignalStrength) >= 0)
-    {
-        basic.showLeds(`
-        . # . # .
-        . # . # .
-        . . . . .
-        # # # # #
-        . . . . .
-        `)
-    }
+    else if (XZ&&YZ)
+        STOP=true;
     else
-    {
-        basic.showLeds(`
-        . # . # .
-        . # . # .
-        . . . . .
-        # . . . #
-        . # # # .
-        `)
-    }
-    //to check if there is a connection
+        STOP = false
 
+    if(STOP)
+    {
+        radio.sendString("STOP");
+        STOP=false;
+    }
+    
+    if (radio.receivedPacket(RadioPacketProperty.SignalStrength) == 0) {
+        basic.showLeds(`
+            . # . # .
+            . # . # .
+            . . . . .
+            # # # # #
+            . . . . .
+            `)
+    } else {
+        basic.showLeds(`
+            . # . # .
+            . # . # .
+            . . . . .
+            # . . . #
+            . # # # .
+            `)
+    }
 })
