@@ -33,10 +33,10 @@ basic.forever(function () {
     } else {
         YZero = false
     }
-    if (joystickX >= 1020) {
+    if (joystickX >= 1012) {
         joystickX = 1023
     }
-    if (joystickY >= 1020) {
+    if (joystickY >= 1012) {
         joystickY = 1023
     }
     // this is used to have a static number, after "1020"
