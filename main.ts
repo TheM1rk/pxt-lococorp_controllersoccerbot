@@ -7,68 +7,56 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     radio.sendNumber(2)
 })
-let joystickY, joystickX, joystickYS, joystickXS,XZero:boolean = false,YZero:boolean = false,STOP:boolean = false;
-radio.setGroup(1)
+let STOPX = false
+let STOPY = false
+let YZero = false
+let XZero = false
+let joystickY, joystickX, joystickYS, joystickXS;
+radio.setGroup(111)
 // to check if there is a connection
-basic.forever(function () 
-{
-    joystickY = pins.analogReadPin(AnalogPin.P2) //read y
-    joystickX = pins.analogReadPin(AnalogPin.P1) // read X
-
-    if (joystickX >= 500 && joystickX <= 512) {
+basic.forever(function () {
+    // read y
+    joystickY = pins.analogReadPin(AnalogPin.P2)
+    // read X
+    joystickX = pins.analogReadPin(AnalogPin.P1)
+    if (joystickX >= 490 && joystickX <= 620) {
+        // its in the center of the joystick. so no input
         XZero = true
     } else {
         XZero = false
     }
     // in case the joystic is in the middle the XZERO becomes true
     // thus not doing anything
-    if (joystickY >= 500 && joystickY <= 510) {
+    if (joystickY >= 490 && joystickY <= 620) {
+        // is in the center of the joystick, so no input
         YZero = true
     } else {
         YZero = false
     }
-
-    if (joystickX >= 1018) {
+    if (joystickX >= 1020) {
         joystickX = 1023
     }
-    if (joystickY >= 1018) {
+    if (joystickY >= 1020) {
         joystickY = 1023
     }
-    // this is used to have a static number, after "1018"
+    // this is used to have a static number, after "1020"
     // the value will result 1023.
-
     if (!(YZero)) {
-        radio.sendValue("movimentoY", joystickY)
+        radio.sendValue("m-Y", joystickY)
+    } else {
+        STOPY = true
     }
     if (!(XZero)) {
-        radio.sendValue("movimentoX", joystickX)
-    }
-    
-    if (XZero && YZero) {
-        STOP = true
+        radio.sendValue("m-X", joystickX)
     } else {
-        STOP = false
+        STOPX = true
     }
-
-    if (STOP) {
-        radio.sendString("STOP")
-        STOP = false //to reset the values in the soccer bot
+    // to reset the x value
+    if (STOPX) {
+        radio.sendString("STOPX")
     }
-    if (radio.receivedPacket(RadioPacketProperty.SignalStrength) == 0) {
-        basic.showLeds(`
-            . # . # .
-            . # . # .
-            . . . . .
-            # # # # #
-            . . . . .
-            `)
-    } else {
-        basic.showLeds(`
-            . # . # .
-            . # . # .
-            . . . . .
-            # . . . #
-            . # # # .
-            `)
+    // to stop the y value
+    if (STOPY) {
+        radio.sendString("STOPY")
     }
 })
