@@ -33,4 +33,5 @@ basic.forever(function () {
         // is in the center of the joystick, so no input
         joystickY = 500
     }
+    radio.sendString("" + joystickX + " " + joystickY)
 })
