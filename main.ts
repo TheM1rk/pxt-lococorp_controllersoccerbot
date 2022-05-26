@@ -1,6 +1,5 @@
 input.onButtonPressed(Button.A, function () {
     radio.sendNumber(1)
-    a = 1
 })
 input.onButtonPressed(Button.AB, function () {
     radio.sendNumber(3)
@@ -34,11 +33,4 @@ basic.forever(function () {
         // is in the center of the joystick, so no input
         joystickY = 500
     }
-    if (joystickX >= 1010) {
-        joystickX = 1023
-    }
-    if (joystickY >= 1009) {
-        joystickY = 1023
-    }
-    radio.sendString("" + joystickX + " " + joystickY)
 })
