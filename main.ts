@@ -1,5 +1,6 @@
 input.onButtonPressed(Button.A, function () {
     radio.sendNumber(1)
+    a = 1
 })
 input.onButtonPressed(Button.AB, function () {
     radio.sendNumber(3)
@@ -7,10 +8,11 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     radio.sendNumber(2)
 })
-let XZero = false
-let STOPX = false
-let STOPY = false
 let YZero = false
+let STOPY = false
+let STOPX = false
+let XZero = false
+let a = 0, team, group
 let joystickY, joystickX, joystickYS, joystickXS;
 radio.setGroup(111)
 let movimento:Array<number>
