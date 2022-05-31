@@ -1,5 +1,4 @@
 pins.onPulsed(DigitalPin.P14, PulseValue.High, function () {
-    serial.writeLine("oh the misery")
     radio.sendNumber(4)
 })
 input.onButtonPressed(Button.A, function () {
@@ -11,15 +10,14 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     radio.sendNumber(2)
 })
-let XZero = false
-let STOPX = false
-let STOPY = false
 let YZero = false
+let STOPY = false
+let STOPX = false
+let XZero = false
 let grup = 40
 let a = 0, team
 let joystickY, joystickX, joystickYS, joystickXS;
 radio.setGroup(grup)
-let movimento: Array<number>
 basic.showNumber(grup / 10)
 // to check if there is a connection
 // this is used to have a static number, after "1020"
