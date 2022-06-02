@@ -1,24 +1,36 @@
 pins.onPulsed(DigitalPin.P14, PulseValue.High, function () {
+    pins.digitalWritePin(DigitalPin.P12, 1)
     radio.sendNumber(4)
+    basic.pause(50)
+    pins.digitalWritePin(DigitalPin.P12, 0)
 })
 input.onButtonPressed(Button.A, function () {
+    pins.digitalWritePin(DigitalPin.P12, 1)
     radio.sendNumber(1)
+    basic.pause(50)
+    pins.digitalWritePin(DigitalPin.P12, 0)
 })
 input.onButtonPressed(Button.AB, function () {
+    pins.digitalWritePin(DigitalPin.P12, 1)
     radio.sendNumber(3)
+    basic.pause(50)
+    pins.digitalWritePin(DigitalPin.P12, 0)
 })
 input.onButtonPressed(Button.B, function () {
     radio.sendNumber(2)
+    basic.pause(50)
+    pins.digitalWritePin(DigitalPin.P12, 0)
+    pins.digitalWritePin(DigitalPin.P12, 1)
 })
-let YZero = false
-let STOPY = false
-let STOPX = false
 let XZero = false
-let grup = 40
+let STOPX = false
+let STOPY = false
+let YZero = false
+let group = 10
 let a = 0, team
 let joystickY, joystickX, joystickYS, joystickXS;
-radio.setGroup(grup)
-basic.showNumber(grup / 10)
+radio.setGroup(group)
+basic.showNumber(group / 10)
 // to check if there is a connection
 // this is used to have a static number, after "1020"
 // the value will result 1023.
